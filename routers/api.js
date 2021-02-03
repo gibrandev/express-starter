@@ -9,6 +9,6 @@ router.get('/', (req, res) => {
 
 router.get('/login', AuthController.login);
 router.get('/me', UserMiddleware, AuthController.me);
-router.get('/logout', AuthController.logout);
+router.get('/logout', UserMiddleware, AuthController.logout);
 
 module.exports = router;
