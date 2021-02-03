@@ -4,7 +4,7 @@ var AuthController = require('../controllers/AuthController');
 var UserMiddleware = require('../middlewares/UserMiddleware');
 
 router.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.render('index');
 });
 
 router.get('/login', AuthController.login);
