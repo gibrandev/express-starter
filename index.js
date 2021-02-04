@@ -1,18 +1,26 @@
 require('dotenv').config();
-const http = require('http');
 const express = require('express');
 const app = express();
-const server = http.createServer(app);
+const server = require('http').createServer(app);
+const io = require('socket.io')(server)
 const port = process.env.APP_PORT || 3000;
 const Router = require('./routers/api');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const consola = require('consola');
-const io = require('socket.io')(server);
 
-// Listen port
-server.listen(port, () => {
-    consola.success(`Listening at http://0.0.0.0:${port}`);
+io.on('connection', function(client) {
+    // Join for chatID
+    client.on('join', function(data) {
+        // Get by emit join
+        var chatID = data;
+        client.on('push', function(data) {
+            // Dynamic from chatID
+            client.emit(chatID, data);
+            // Dynamic from chatID
+            client.broadcast.emit(chatID, data);
+        });
+    });
 });
 
 // Use libraries
@@ -26,21 +34,10 @@ app.use(bodyParser.json());
 // Init route
 app.use('/', Router);
 
-// Socket.io
-io.on('connection', function (socket) {
-    console.log("Connected succesfully to the socket ...");
-
-    var news = [
-        { title: 'The cure of the Sadness is to play Videogames',date:'04.10.2016'},
-        { title: 'Batman saves Racoon City, the Joker is infected once again',date:'05.10.2016'},
-        { title: "Deadpool doesn't want to do a third part of the franchise",date:'05.10.2016'},
-        { title: 'Quicksilver demand Warner Bros. due to plagiarism with Speedy Gonzales',date:'04.10.2016'},
-    ];
-
-    // Send news on the socket
-    socket.emit('news', news);
-
-    socket.on('my other event', function (data) {
-        console.log(data);
+// Listen port
+server.listen(port, function(){
+    consola.ready({
+        message: `Listening on *:${port}`,
+        badge: true
     });
 });
