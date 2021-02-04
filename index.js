@@ -14,10 +14,12 @@ io.on('connection', function(client) {
     client.on('join', function(data) {
         // Get by emit join
         var chatID = data;
-        client.on('push', function(data) {
+        console.log('Join to:' + chatID);
+        client.on(chatID, function(data) {
             // Dynamic from chatID
             client.emit(chatID, data);
             // Dynamic from chatID
+            console.log('Broadcast to:' + chatID);
             client.broadcast.emit(chatID, data);
         });
     });
