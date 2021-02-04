@@ -2,7 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server)
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "*",
+        methods: "*",
+        credentials: false
+    },
+    allowEIO3: true
+});
 const port = process.env.APP_PORT || 3000;
 const Router = require('./routers/api');
 const bodyParser = require('body-parser');
@@ -14,15 +21,15 @@ io.on('connection', function(client) {
     client.on('join', function(data) {
         // Get by emit join
         var chatID = data;
-        console.log('Join to:' + chatID);
+        console.log('Join to: ' + chatID);
         client.on(chatID, function(data) {
             // Dynamic from chatID
             client.emit(chatID, data);
             // Dynamic from chatID
-            console.log('Broadcast to:' + chatID);
             client.broadcast.emit(chatID, data);
+            console.log('Broadcast to: ' + chatID);
         });
-    });
+    }); 
 });
 
 // Use libraries
