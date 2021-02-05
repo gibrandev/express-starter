@@ -18,34 +18,6 @@ const consola = require('consola');
 const jwt = require('jsonwebtoken');
 
 /*
-** Logging to file
-*/
-const pino = require("pino")("./storage/logs/info.log");
-const expressPino = require("express-pino-logger")({
-  logger: pino
-});
-
-var logrotate = require('logrotator');
-
-// use the global rotator
-var rotator = logrotate.rotator;
-
-rotator.register('./storage/logs/info.log', {
-    schedule: '5m', 
-    size: '1m', 
-    compress: true, 
-    count: 3, 
-    format: function(index) {
-        var d = new Date();
-        return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
-    }
-});
-/*
-** Logging to file
-*/
-
-
-/*
 ** Socket io
 */
 io.use((socket, next) => {
@@ -85,7 +57,6 @@ io.on('connection', (client) => {
 /*
 ** Use libraries
 */
-app.use(expressPino);
 app.engine('pug', require('pug').__express);
 app.set('views', './views');
 app.set('view engine', 'pug');
