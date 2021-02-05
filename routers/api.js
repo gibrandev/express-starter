@@ -4,7 +4,6 @@ var AuthController = require('../controllers/AuthController');
 var UserMiddleware = require('../middlewares/UserMiddleware');
 
 router.get('/', (req, res) => {
-    req.log.info('something');
     res.render('index');
 });
 
