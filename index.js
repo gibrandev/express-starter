@@ -16,11 +16,38 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const consola = require('consola');
 const jwt = require('jsonwebtoken');
+
+/*
+** Logging to file
+*/
 const pino = require("pino")("./storage/logs/info.log");
 const expressPino = require("express-pino-logger")({
   logger: pino
 });
 
+var logrotate = require('logrotator');
+
+// use the global rotator
+var rotator = logrotate.rotator;
+
+rotator.register('./storage/logs/info.log', {
+    schedule: '5m', 
+    size: '1m', 
+    compress: true, 
+    count: 3, 
+    format: function(index) {
+        var d = new Date();
+        return d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
+    }
+});
+/*
+** Logging to file
+*/
+
+
+/*
+** Socket io
+*/
 io.use((socket, next) => {
     if (socket.handshake.query && socket.handshake.query.token){
         jwt.verify(socket.handshake.query.token, `your-256-bit-secret`, function(err, decoded) {
@@ -51,6 +78,9 @@ io.on('connection', (client) => {
         // console.log(client); // the Set contains at least the socket ID
     });
 });
+/*
+** Socket io
+*/
 
 // Use libraries
 app.use(expressPino);
@@ -61,10 +91,14 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Init route
+/*
+** Init route
+*/
 app.use('/', Router);
 
-// Listen port
+/*
+** Listen port
+*/
 server.listen(port, () => {
     consola.ready({
         message: `Listening on *:${port}`,
