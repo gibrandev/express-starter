@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const consola = require('consola');
 const jwt = require('jsonwebtoken');
+const helmet = require("helmet");
 
 /*
 ** Socket io
@@ -57,10 +58,11 @@ io.on('connection', (client) => {
 /*
 ** Use libraries
 */
+app.use(cors());
+app.use(helmet());
 app.engine('pug', require('pug').__express);
 app.set('views', './views');
 app.set('view engine', 'pug');
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
