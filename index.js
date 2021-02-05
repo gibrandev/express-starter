@@ -82,7 +82,9 @@ io.on('connection', (client) => {
 ** Socket io
 */
 
-// Use libraries
+/*
+** Use libraries
+*/
 app.use(expressPino);
 app.engine('pug', require('pug').__express);
 app.set('views', './views');
