@@ -16,6 +16,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const consola = require('consola');
 const jwt = require('jsonwebtoken');
+const pino = require('pino-http')();
 
 io.use((socket, next) => {
     if (socket.handshake.query && socket.handshake.query.token){
@@ -49,6 +50,7 @@ io.on('connection', (client) => {
 });
 
 // Use libraries
+app.use(pino);
 app.engine('pug', require('pug').__express);
 app.set('views', './views');
 app.set('view engine', 'pug');
