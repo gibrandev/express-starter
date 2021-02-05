@@ -37,7 +37,7 @@ rotator.register('./storage/logs/info.log', {
     count: 3, 
     format: function(index) {
         var d = new Date();
-        return d.getDate()+"-"+d.getMonth()+"-"+d.getFullYear();
+        return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate();
     }
 });
 /*
