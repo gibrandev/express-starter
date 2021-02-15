@@ -1,21 +1,21 @@
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
+const TokenGenerator = require('../libs/token')
 
-exports.login = function(req, res) {
-    var token = jwt.sign({ username: 'gibrandev' }, process.env.JWT_SECRET || '');
+exports.login = async (req, res) => {
+    var token = await TokenGenerator(req);
     return res.status(200).json({
         message: 'Login',
         token: token
     });
 };
 
-exports.me = function(req, res) {
+exports.me = (req, res) => {
     return res.status(200).json({
         message: 'Me'
     });
 };
 
-exports.logout = function(req, res) {
+exports.logout = (req, res) => {
     return res.status(200).json({
         message: 'Logout'
     });
