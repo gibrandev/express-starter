@@ -1,11 +1,11 @@
 require('dotenv').config();
-const TokenGenerator = require('../libs/token')
+const Token = require('../libs/token')
 
 exports.login = async (req, res) => {
-    var token = await TokenGenerator(req);
+    var getToken = await Token.generator(req);
     return res.status(200).json({
         message: 'Login',
-        token: token
+        token: getToken
     });
 };
 
