@@ -5,9 +5,8 @@ var UserMiddleware = async function (req, res, next) {
         var bearer = token.includes("Bearer") || token.includes("bearer");
         if(bearer) {
             var bearer = token.replace(/ .*/, '');
-            if(bearer === 'Bearer' || bearer === 'bearer') {
-                token = token.replace('Bearer ','');
-            }
+            var reg = new RegExp('bearer', 'gi');
+            token = token.replace(reg, '').trim();
         }
         jwt.verify(token, process.env.JWT_SECRET || '', function(err, decoded) {
             if(err) {
