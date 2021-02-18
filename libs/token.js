@@ -1,5 +1,4 @@
 require('dotenv').config();
-// const redis = require('./redis')
 const jwt = require('jsonwebtoken');
 const model = require('../models/index');
 
