@@ -6,7 +6,8 @@ module.exports = {
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOSTNAME,
     "dialect": process.env.DB_DIALECT,
-    "port": process.env.DB_PORT
+    "port": process.env.DB_PORT,
+    "logging": false
   },
   "test": {
     "username": process.env.DB_USERNAME,
@@ -14,7 +15,8 @@ module.exports = {
     "database": process.env.DB_NAME,
     "host": process.env.DB_HOSTNAME,
     "dialect": process.env.DB_DIALECT,
-    "port": process.env.DB_PORT
+    "port": process.env.DB_PORT,
+    "logging": false
   },
   "production": {
     "username": process.env.DB_USERNAME,
