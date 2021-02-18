@@ -1,26 +1,33 @@
 require('dotenv').config();
-const { v4: uuidv4 } = require('uuid');
-const redis = require('./redis')
+// const redis = require('./redis')
 const jwt = require('jsonwebtoken');
+const model = require('../models/index');
+
 exports.generator = async (req, res, next) => {
     var host = req.get('host');
-    var IdToken = uuidv4();
-    var token = jwt.sign({ iss: host, sub: 'gibrandev', type: 'user', jti: IdToken }, process.env.JWT_SECRET || '');
-    redis.set(`jwt:token:${IdToken}`, token);
+    var type = 'user';
+    var sub = 'gibrandev';
+
+    var IdToken = await model.token.create({
+        id: IdToken,
+        sub: sub,
+        type: type
+    });
+
+    var token = jwt.sign({ 
+        iss: host,
+        sub: sub,
+        type: type,
+        jti: IdToken.id 
+    }, process.env.JWT_SECRET || '');
     return token;
 };
 
 exports.check = async (key) => {
-    return new Promise((resolve, reject) => {
-        redis.get(`jwt:token:${key}`, (e, data) => {
-            if(e){
-                reject(false);
-            }
-            if(data != null) {
-                resolve(true);
-            } else {
-                resolve(false)
-            }
-        });
-    });
+    var IdToken = await model.token.findByPk(key);
+    if(IdToken) {
+        return true
+    } else {
+        return false
+    }
 }
