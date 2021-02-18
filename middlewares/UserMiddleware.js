@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 const JwtToken = require('../libs/token')
-var UserMiddleware = async function (req, res, next) {
+exports.auth = async (req, res, next) => {
     var token = req.query.token || req.headers.authorization;
     if(token) {
         var bearer = token.includes("Bearer") || token.includes("bearer");
@@ -33,4 +33,3 @@ var UserMiddleware = async function (req, res, next) {
         });
     }
 }
-module.exports = UserMiddleware;
