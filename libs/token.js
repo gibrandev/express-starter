@@ -1,5 +1,6 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 const model = require('../models/index');
 
 exports.generator = async (req, res, next) => {
@@ -25,6 +26,8 @@ exports.generator = async (req, res, next) => {
 exports.check = async (key) => {
     var IdToken = await model.token.findByPk(key);
     if(IdToken) {
+        IdToken.lastAccessAt = moment();
+        await IdToken.save();
         return true
     } else {
         return false

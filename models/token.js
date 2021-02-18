@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     sub: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    lastAccessAt: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'token',
