@@ -23,6 +23,7 @@
     "logrotator": "^1.1.0",
     "moment": "^2.29.1",
     "multer": "^1.4.2",
+    "nodemailer": "^6.4.18",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "pug": "^3.0.0",
