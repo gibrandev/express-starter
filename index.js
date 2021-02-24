@@ -17,16 +17,23 @@ const cors = require('cors');
 const consola = require('consola');
 const jwt = require('jsonwebtoken');
 const helmet = require("helmet");
+const JwtToken = require('./libs/token');
 
 /*
 ** Socket io
 */
 io.use((socket, next) => {
     if (socket.handshake.query && socket.handshake.query.token){
-        jwt.verify(socket.handshake.query.token, process.env.JWT_SECRET || '', function(err, decoded) {
+        jwt.verify(socket.handshake.query.token, process.env.JWT_SECRET || '', async (err, decoded) => {
         if(err) return next(new Error('Authentication error'));
-            socket.decoded = decoded;
-            next();
+            // Check token with lib
+            var checkToken = await JwtToken.check(decoded.jti);
+            if(checkToken === false) {
+                next(new Error('Authentication error'));
+            } else {
+                socket.decoded = decoded;
+                next();
+            }
         });
     } else {
         next(new Error('Authentication error'));
