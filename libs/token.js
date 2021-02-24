@@ -5,13 +5,15 @@ const model = require('../models/index');
 
 exports.generator = async (req, res, next) => {
     var host = req.get('host');
+    var ip = req.ip;
     var type = 'user';
     var sub = 'gibrandev';
 
     var IdToken = await model.token.create({
         id: IdToken,
         sub: sub,
-        type: type
+        type: type,
+        ip: ip
     });
 
     var token = jwt.sign({ 

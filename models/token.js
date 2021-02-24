@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         },
             sub: DataTypes.STRING,
             type: DataTypes.STRING,
+            ip: DataTypes.STRING,
             lastAccessAt: DataTypes.DATE
     }, {
         sequelize,
