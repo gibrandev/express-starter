@@ -41,17 +41,17 @@ io.use((socket, next) => {
 });
 
 io.on('connection', (client) => {
-    // Join for chatID
+    // Join for room
     client.on('join', (data) => {
         // Get by emit join
-        var chatID = data;
-        console.log('Join to: ' + chatID);
-        client.on(chatID, (data) => {
-            // Dynamic from chatID
-            client.emit(chatID, data);
-            // Dynamic from chatID
-            client.broadcast.emit(chatID, data);
-            console.log('Broadcast to: ' + chatID);
+        var room = data;
+        console.log('Join to: ' + room);
+        client.on(room, (data) => {
+            // Dynamic from room
+            client.emit(room, data);
+            // Dynamic from room
+            client.broadcast.emit(room, data);
+            console.log('Broadcast to: ' + room);
         });
     });
     client.on('disconnecting', () => {
