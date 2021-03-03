@@ -1,11 +1,11 @@
 var jwt = require('jsonwebtoken');
-const JwtToken = require('../libs/token')
+const JwtToken = require('../libs/token');
 exports.auth = async (req, res, next) => {
     var token = req.query.token || req.headers.authorization;
     if(token) {
         var bearer = token.includes("Bearer") || token.includes("bearer");
         if(bearer) {
-            var bearer = token.replace(/ .*/, '');
+            bearer = token.replace(/ .*/, '');
             var reg = new RegExp('bearer', 'gi');
             token = token.replace(reg, '').trim();
         }
@@ -24,12 +24,12 @@ exports.auth = async (req, res, next) => {
                 });
             }
             // query get user
-            res.user = decoded.sub
-            next()
+            res.user = decoded.sub;
+            next();
         });
     } else {
         return res.status(401).json({
             message: 'Invalid token'
         });
     }
-}
+};

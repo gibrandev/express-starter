@@ -15,4 +15,4 @@ let transporter = nodemailer.createTransport({
 transporter.use('compile', pugEngine({
     templateDir: process.cwd() + '/views/mails'
 }));
-module.exports = transporter
+module.exports = transporter;

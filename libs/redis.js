@@ -6,5 +6,5 @@ const options = {
     auth_pass: process.env.REDIS_DB_PASSWORD || null,
     db: 1,
     prefix: process.env.REDIS_DB_PREFIX || 'Express'
-}
+};
 module.exports = redis.createClient(options);

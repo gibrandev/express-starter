@@ -30,8 +30,8 @@ exports.check = async (key) => {
     if(IdToken) {
         IdToken.lastAccessAt = moment();
         await IdToken.save();
-        return true
+        return true;
     } else {
-        return false
+        return false;
     }
-}
+};
