@@ -6,6 +6,7 @@ require('mocha-jshint')({
         'libs/',
         'migrations/',
         'models/',
-        'routers/'
+        'routers/',
+        'views/'
     ]
 });
