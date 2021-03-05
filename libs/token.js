@@ -9,7 +9,7 @@ exports.generator = async (req, res, next) => {
     var type = 'user';
     var sub = 'gibrandev@gmail.com';
 
-    var user = await model.user.findOne({ where: { email: sub } })
+    var user = await model.user.findOne({ where: { email: sub } });
 
     var IdToken = await model.token.create({
         id: IdToken,
