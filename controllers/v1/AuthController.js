@@ -3,10 +3,15 @@ const Token = require('../../libs/token');
 const Mail = require('../../libs/mail');
 
 exports.login = async (req, res) => {
-    var getToken = await Token.generator(req);
-    return res.status(200).json({
-        message: 'Login',
-        token: getToken
+    await Token.generator(req, 'user', 'gibrandev@gmail.com').then((responses) => {
+        return res.status(200).json({
+            message: 'Login',
+            token: responses
+        });
+    }).catch(error => {
+        return res.status(401).json({
+            message: 'Unauthorized'
+        });
     });
 };
 
