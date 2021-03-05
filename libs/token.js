@@ -7,13 +7,16 @@ exports.generator = async (req, res, next) => {
     var host = req.get('host');
     var ip = req.ip;
     var type = 'user';
-    var sub = 'gibrandev';
+    var sub = 'gibrandev@gmail.com';
+
+    var user = await model.user.findOne({ where: { email: sub } })
 
     var IdToken = await model.token.create({
         id: IdToken,
         sub: sub,
         type: type,
-        ip: ip
+        ip: ip,
+        object_id: user.id
     });
 
     var token = jwt.sign({ 

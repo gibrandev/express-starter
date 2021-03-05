@@ -17,6 +17,9 @@ module.exports = {
       ip: {
         type: Sequelize.STRING
       },
+      object_id: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

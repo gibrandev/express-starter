@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             sub: DataTypes.STRING,
             type: DataTypes.STRING,
             ip: DataTypes.STRING,
+            object_id: DataTypes.STRING,
             lastAccessAt: DataTypes.DATE
     }, {
         sequelize,
