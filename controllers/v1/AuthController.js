@@ -16,12 +16,12 @@ exports.login = async (req, res) => {
 };
 
 exports.me = async (req, res) => {
-    await Mail.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "bar@example.com, baz@example.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        template: 'test',
-    });
+    // await Mail.sendMail({
+    //     from: '"Fred Foo 👻" <foo@example.com>', // sender address
+    //     to: "bar@example.com, baz@example.com", // list of receivers
+    //     subject: "Hello ✔", // Subject line
+    //     template: 'test',
+    // });
     return res.status(200).json({
         message: 'Me'
     });
