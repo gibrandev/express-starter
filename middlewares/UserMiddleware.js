@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 const JwtToken = require('../libs/token');
+
 exports.auth = async (req, res, next) => {
     var token = req.query.token || req.headers.authorization;
     if(token) {

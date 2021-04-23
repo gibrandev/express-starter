@@ -20,9 +20,8 @@ exports.generator = async (req, type, sub) => {
             });
         
             var token = jwt.sign({ 
-                iss: host,
-                sub: sub,
-                type: type,
+                iss: type,
+                sub: user.id,
                 jti: IdToken.id 
             }, process.env.JWT_SECRET || '');
             resolve(token);
@@ -42,3 +41,20 @@ exports.check = async (key) => {
         return false;
     }
 };
+
+exports.getUser = async (decoded) => {
+    var user;
+    if(decoded.iss === 'user') {
+        user = await model.user.findOne({ 
+            attributes: {
+                exclude: ['password', 'email']
+            },
+            where: { 
+                id: decoded.sub 
+            }
+        });
+    } else {
+        user = null;
+    }
+    return user;
+}
