@@ -55,7 +55,7 @@ io.on('connection', (client) => {
         });
     });
     client.on('disconnecting', () => {
-        console.log(client); // the Set contains at least the socket ID
+        // console.log(client); // the Set contains at least the socket ID
     });
 });
 /*
