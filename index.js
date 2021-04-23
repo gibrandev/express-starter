@@ -12,7 +12,6 @@ const io = require("socket.io")(server, {
 });
 const port = process.env.APP_PORT || 3000;
 const Router = require('./routers/api');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const consola = require('consola');
 const jwt = require('jsonwebtoken');
@@ -71,8 +70,8 @@ app.use(helmet());
 app.engine('pug', require('pug').__express);
 app.set('views', './views');
 app.set('view engine', 'pug');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 /*
 ** Init route
