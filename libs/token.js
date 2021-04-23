@@ -57,4 +57,4 @@ exports.getUser = async (decoded) => {
         user = null;
     }
     return user;
-}
+};

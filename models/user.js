@@ -1,7 +1,7 @@
 'use strict';
 const { Model } = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
-const PROTECTED_ATTRIBUTES = ['password']
+const PROTECTED_ATTRIBUTES = ['password'];
 
 module.exports = (sequelize, DataTypes) => {
     class user extends Model {
@@ -12,11 +12,11 @@ module.exports = (sequelize, DataTypes) => {
          */
         toJSON () {
             // hide protected fields
-            let attributes = Object.assign({}, this.get())
+            let attributes = Object.assign({}, this.get());
             for (let a of PROTECTED_ATTRIBUTES) {
-                delete attributes[a]
+                delete attributes[a];
             }
-            return attributes
+            return attributes;
         }
         static associate(models) {
             user.hasMany(models.token, {foreignKey: 'object_id', as: 'tokens'});
