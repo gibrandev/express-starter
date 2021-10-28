@@ -6,7 +6,6 @@ const model = require('../models/index');
 exports.generator = async (req, type, sub) => {
     return new Promise(async(resolve, reject) => {
         try {
-            var host = req.get('host');
             var ip = req.ip;
         
             var user = await model.user.findOne({ where: { email: sub } });
@@ -58,3 +57,16 @@ exports.getUser = async (decoded) => {
     }
     return user;
 };
+
+exports.checkJwt = (token, chatId) => {
+    var status;
+    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
+        // TODO check ID User match with ID User in chat
+        if(decoded) {
+            status = true;
+        } else {
+            status = false;
+        };
+    });
+    return status;
+}
