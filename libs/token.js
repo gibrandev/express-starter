@@ -66,7 +66,7 @@ exports.checkJwt = (token, chatId) => {
             status = true;
         } else {
             status = false;
-        };
+        }
     });
     return status;
-}
+};
